@@ -1,6 +1,7 @@
 import datetime
 
 import pandas as pd
+from typing import List
 from binance import Client  # pip install python-binance
 
 
@@ -29,6 +30,11 @@ class Dataset:
 
     def get_data(self, days: int, symbol: str, tf: str) -> pd.DataFrame:
         return self._download_data(days=days, symbol=symbol, tf=tf)
+
+    def get_datas(self, days: int, symbols: List, tf: str) -> pd.DataFrame:
+        datas = [self._download_data(days=days, symbol=symbol, tf=tf)
+                 for symbol in symbols]
+        return pd.concat(datas, axis=0)
 
     def _download_data(self, days: int=10, symbol: str='BTCUSDT', tf: str='1h') -> pd.DataFrame:
         '''
