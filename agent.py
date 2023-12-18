@@ -1,10 +1,11 @@
 
 from collections import deque
 
-import keras.models
-from keras.layers import Dense
-from keras.optimizers import Adam
-from keras import Sequential
+import tensorflow as tf
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras import Sequential
+
 import random
 import numpy as np
 
@@ -72,8 +73,10 @@ class DQLAgent:
                     av = sum(trewards[-25:]) / 25
                     self.averages.append(av)
                     self.max_treward = max(self.max_treward, treward)
-                    templ = 'episode: {:4d}/ {} | treward: {:4D} | av: {:6.1f} | max: {:4d}'
-                    print(templ.format(e, episodes, treward, av, self.max_treward), end='\r')
+                    print(f'{e} | episode: {episodes} | treward: {treward} | av: {av} | max:  {self.max_treward}',
+                          end='\r')
+                    # templ = 'episode: {:4d}/ {} | treward: {:4D} | av: {:6.1f} | max: {:4d}'
+                    # print(templ.format(e, episodes, treward, av, self.max_treward), end='\r')
                     break
             if av > 195 and self.finish:
                 break

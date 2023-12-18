@@ -57,7 +57,7 @@ class Environment:
 
     def step(self, action):
         correct = action == self.data['d'].iloc[self.bar]
-        self.data['action'].iloc[self.bar] = action
+        self.data['action'].loc[self.bar] = action
         reward = 1 if correct else 0
         self.total_reward += reward
         self.bar += 1
