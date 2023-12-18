@@ -2,7 +2,6 @@
 from collections import deque
 
 import keras.models
-import tensorflow as tf
 from keras.layers import Dense
 from keras.optimizers import Adam
 from keras import Sequential
