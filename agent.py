@@ -2,9 +2,10 @@
 from collections import deque
 
 import tensorflow as tf
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras import Sequential
+import keras
+from keras.layers import Dense
+from keras.optimizers import Adam
+from keras import Sequential
 
 import random
 import numpy as np

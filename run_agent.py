@@ -18,8 +18,9 @@ plt.plot(x, y, 'r--', label='regression')
 plt.xlabel('episodes')
 plt.ylabel('total reward')
 plt.legend()
+plt.show()
 
-# agent.test(1)
-# agent.env.data_['returns'] = env.data_['close'].pct_change()
-# agent.env.data_['strategy'] = env.data['action'] * env.data_['returns']
-# agent.env.data_['strategy'].cumsum().plot()
+agent.test(1)
+agent.env.data_['returns'] = env.data_['close'].pct_change()
+agent.env.data_['strategy'] = env.data['action'] * env.data_['returns']
+agent.env.data_['strategy'].cumsum().plot()
