@@ -82,6 +82,25 @@ class DQLAgent:
                 self.replay()
         self.save()
 
+    def test(self, episodes):
+        self.load()
+        self.epsilon = 0
+        trewards = []
+        for e in range(1, episodes + 1):
+            state = self.env.reset()
+            for i in range(len(self.env.data)):
+                if self.env.bar >= len(self.env.data - 1):
+                    break
+                state = np.reshape(state, [1, self.osn])
+                action = np.argmax(self.model.predict(state)[0])
+                next_state, reward, done, info = self.env.step(action)
+                state = next_state
+                if done:
+                    treward = i + 1
+                    trewards.append(treward)
+                    print('episode: {:4d}/{} | treward: {:4d}'.format(e, episodes, treward), end='\r')
+        return trewards
+
 
 
 
