@@ -50,8 +50,8 @@ class Dataset:
 
     def _convert_to_dataframe(self, klines: list) -> pd.DataFrame:
         data = pd.DataFrame(data=[row[1:7] for row in klines],
-                            columns=['open', 'high', 'low', 'close', 'volume', 'time']
-                            ).set_index('time')
+                            columns=['Open', 'High', 'Low', 'Close', 'Volume', 'Date']
+                            ).set_index('Date')
         data.index = pd.to_datetime(data.index + 1, unit='ms')
         data = data.sort_index()
         data = data.apply(pd.to_numeric, axis=1)
