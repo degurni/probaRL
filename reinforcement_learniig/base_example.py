@@ -1,6 +1,7 @@
 
 from dataset import Dataset
 
+import os
 import gymnasium as gym
 import gym_anytrading
 from stable_baselines3.ppo.policies import MlpPolicy
@@ -36,7 +37,7 @@ env = make_vec_env(lambda: env_maker(), n_envs=100)  # 1000
 # model = PPO(MlpPolicy, env, verbose=1)
 model = A2C(MlpPolicy, env, verbose=1)
 
-# Случайная эволюция перед тренировкой
+# Оценка модели перед тренировкой
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=10)
 print(f"среднее награда:{mean_reward:.2f} +/- {std_reward:.2f}")
 # средняя награда:0.00 +/- 0.00
@@ -44,8 +45,31 @@ print(f"среднее награда:{mean_reward:.2f} +/- {std_reward:.2f}")
 model.learn(total_timesteps=10_000_000)
 
 
+# Оценка модели после тренировки
+mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=10)
+print(f"среднее награда:{mean_reward:.2f} +/- {std_reward:.2f}")
 
+# Сохраняем модель агента в файл
+save_dir = '/tmp/gym/'
+os.makedirs(save_dir, exist_ok=True)
+model.save(f'{save_dir}/agentModel')
 
+# Проверяем обученую модель
+env = gym.make('forex-v0', df=df, frame_bound=(start_index, end_index), window_size=window_size)
+env.trade_fee = 0.0  # комиссия за сделку
+
+obs = env.reset()
+while True:
+    obs = obs[np.newaxis, ...]
+    action, state = model.predict(obs)
+    obs, reward, done, info = env.step(action)
+    if done:
+        print('info', info)
+        break
+
+plt.figure(figsize=(300, 50))
+env.render_all()
+plt.show()
 
 
 
