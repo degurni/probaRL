@@ -2,3 +2,7 @@ python-binance
 pandas
 matplotlib
 tensorflow==2.12.0
+gymnasium
+gym-anytrading
+stable-baselines3
+QuantStats
