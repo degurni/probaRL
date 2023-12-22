@@ -58,9 +58,10 @@ model.save(f'{save_dir}/agentModel')
 env = gym.make('forex-v0', df=df, frame_bound=(start_index, end_index), window_size=window_size)
 env.trade_fee = 0.0  # комиссия за сделку
 
-obs = env.reset()
+obs, info = env.reset()
 while True:
-    obs = obs[np.newaxis, ...]
+    # obs = obs[np.newaxis, ...]
+    print(obs)
     action, state = model.predict(obs)
     obs, reward, done, info = env.step(action)
     if done:
