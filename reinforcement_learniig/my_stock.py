@@ -1,4 +1,8 @@
 
+video = 'https://www.youtube.com/watch?v=d3a_Fs753-A'
+cod = 'https://colab.research.google.com/drive/18OVthjc_dunpLtBgWbCIqWLzE4LoA0_c?usp=sharing#scrollTo=krmvJpHp8Y1O'
+
+
 from dataset import Dataset
 import gymnasium as gym
 import gym_anytrading
